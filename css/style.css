@@ -124,6 +124,8 @@ body {
 /* Bar style */
 .bar{
     width: 25vw;
+    height: initial;
+    overflow-y: scroll;
 }
 .bar > h2{
     font-size: 24px;
@@ -165,6 +167,7 @@ body {
 .main__content{
     background: #E5E5E5;
     width: 75vw;
+    min-height: 100vh;
     padding: 20px;
 }
 
@@ -221,13 +224,15 @@ body {
     padding: 10px 10px;
     width: 100%;
     display: block;
+    border-radius: 5px;
 
 }
 .card__btn{
     text-align: center;
 }
-.card__btn a{
+.card__btn div{
     border-radius: 5px;
+    cursor: pointer;
 }
 .card > img{
     text-align: center;
@@ -272,9 +277,6 @@ body {
     border: 1px solid #0D75FF;
 }
 
-.prev{
-
-}
 
 .paginate{
     display: flex;
@@ -295,3 +297,117 @@ body {
 .act{
     background-color: rgba(0, 0, 0, 0.144);
 }
+
+
+/* NEW */
+.read__more{
+    min-width: 60px;
+    text-align: center;
+}
+.bookmark__read, .bookmark__info, .bookmark__btn{
+    cursor: pointer;
+}
+.more-btn__modal{
+    padding: 8px 25px ;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #75828A;
+    color: #fff;
+
+}
+
+.modal__items{
+    padding-bottom: 30px;
+}
+.read-btn__modal{
+    width: 100%;
+}
+/* ============== */
+
+
+/* MODAL */
+.box__modal{
+    position: fixed;
+    height: 100vh;
+    width: 80vh;
+    right: 0;
+    top: 0;
+    overflow-y: scroll;
+    background-color: #fff;
+    padding: 40px;
+}
+.box__modal > img{
+    width: 100%;
+    height: auto;
+    padding: 20px 130px;
+}
+.modal__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.modal__item{
+    padding-top: 10px;
+}
+.modal__item  >span{
+    color: #0D75FF;
+    background: rgba(13, 117, 255, 0.09);
+    border-radius: 30px;
+    padding: 2px 5px;
+    margin-left: 30px;
+}
+
+.xmark{
+    transition: all 1s;
+    cursor: pointer;
+}
+
+.close{
+    /* transform: translateX(100%);
+    transition: all 1s;
+    animation-duration: 1s;
+    animation-name: slidein2; */
+
+    display: none;
+}
+.show{
+    transform: translateX(0%);
+    transition: all 1s;
+    animation-duration: 1s;
+    animation-name: slidein;
+}
+
+@keyframes slidein2 {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes slidein {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.modal__mask{
+    background-color:  rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    overflow-y: hidden;
+}
+
+
+
+
+
+
+

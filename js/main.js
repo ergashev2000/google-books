@@ -5,27 +5,26 @@ async function getData(
   pageIndex = "1"
 ) {
   let startIndexNum = pageIndex * 9;
-  try {
     const res = await fetch(
       `https://www.googleapis.com/books/v1/volumes?q=${search}${order}&maxResults=${maxResult}&startIndex=${startIndexNum}`
     );
 
     let result = await res.json();
-    dataRender(result.items);
-    moreInfo(result.items);
-    addBookmark(result.items);
-    $(".resultNumbers").textContent = result.totalItems;
-    
-    return result;
-  } catch (err) {
-    setTimeout(() => {
-      alert("Serverda muommo bo'lishi mumkin ! ")
-    }, 3000);
-  }
+
+    if (result.items === undefined) {
+      alert("Bunday kitob yo'q")
+      $(".resultNumbers").textContent = "0";
+    }else{
+      dataRender(result.items);
+      moreInfo(result.items);
+      addBookmark(result.items);
+      $(".resultNumbers").textContent = result.totalItems;
+      return result.items;
+    }
+
 }
 getData()
 
-// paginate(99, 9);
 
 
 // Get history orders by load =============
@@ -36,19 +35,9 @@ window.addEventListener("load", () => {
 // ========================================
 
 
-
-
-
-
-
-
-paginate(99)
-
-
-// let  test = 0;
 // PAGINATE=================================
-function paginate(totalItemsNum) {
-  // let pageIndexNum = Math.ceil(totalItemsNum / maxResultNum);
+function paginate2(totalItemsNum) {
+
   if (totalItemsNum <= 5) { 
     for (let i = 1; i < totalItemsNum; i++) {
       const li = createElement("li", "pag", i);
@@ -92,6 +81,7 @@ function paginate(totalItemsNum) {
       }
     });
 
+
     $(".pagination").addEventListener("click", (e) => {
       if (e.target.className == "pag") {
         a > 1
@@ -114,33 +104,48 @@ function paginate(totalItemsNum) {
             }
             
             $(".cards").innerHTML = " ";
-          localStorage.setItem("searchValueNum", e.target.textContent);
-          let searchVal = localStorage.getItem("searchValue");
-          dataRender(getData(searchVal , " ", 9, e.target.textContent));
+          let search33 = localStorage.getItem("searchValue");
+
+          if (search33 == null) {
+            getData("python" , " ", 9, e.target.textContent)
+          }else{
+              localStorage.setItem("number" , e.target.textContent)
+              searchFun()
+          }
       }
     });
 
   }
 }
 
+paginate2(99);
+
 
 
 // SEARCH
+function searchFun() {
+  let searchVall = localStorage.getItem("searchValue");
+  let ss = localStorage.getItem("number");
+  getData(searchVall, " ", 9, ss);
+}
+
+
+
+
+
+
 function searchBook(){
+  
+  $(".search__btn").addEventListener("click", () => {
+    localStorage.setItem("searchValue", $("#search").value);
+    $(".cards").innerHTML = " ";
+    $(".pagination").innerHTML = " ";
+    paginate2(99);
+    searchFun()
 
-  $("#search").addEventListener("keyup", () => {
-    setTimeout(() => {
-      $(".cards").innerHTML = " ";
-      localStorage.setItem("searchValue", $("#search").value);
-      let searchVall = localStorage.getItem("searchVal");
-      dataRender(getData(searchVall = $("#search").value , " ", 9, 1));
-    }, 2000);
   })
-
 }
 searchBook()
-
-
 
 
 
@@ -149,13 +154,10 @@ searchBook()
 $(".newest").addEventListener("click", (e) => {
     $(".cards").innerHTML = " ";
     let searchValLast = localStorage.getItem("searchValue");
-    let searchValLastNum = localStorage.getItem("searchValueNum");
-    getData(searchValLast, "&orderBy=newest", 9, searchValLastNum = 1);
+    getData(searchValLast = "python", "&orderBy=newest", 9, 1);
 })
 
 //////////////////////////////////
-
-
 
 
 
@@ -188,10 +190,8 @@ function dataRender(dataRen) {
 }
 
 
-
-
+// More info
 function moreInfo(getMoreInfo){
-
   $(".cards").addEventListener("click", (e) => {
     if (e.target.textContent == "More Info") {
       $(".modal").classList.remove("close");
@@ -225,26 +225,19 @@ function moreInfo(getMoreInfo){
               Read
             </a>
           `);
-
           $(".modal").appendChild(modal);
-
         }
       });
     }
-
-   
-
   })
 }
 
 
 
 
-// add Bookmark
+// Add Bookmark
 
 function addBookmark(getBookmark) {
-
-  
 
   $(".cards").addEventListener("click", (e) => {
 
@@ -273,13 +266,11 @@ function addBookmark(getBookmark) {
                                     <img src="./images/delete.svg" alt="Delete" data-id="${el.id}" class="deleteMoreBtn">
                                 </div>
                             </div>
-                       
             `
             )
             $(".bookmarks__items").appendChild(addBook);
           }
         });
-
     }
   })
 
@@ -302,14 +293,6 @@ function deleteBooks() {
 
 }
 deleteBooks()
-
-
-
-
-
-
-
-
 
 // CLOSE TOGGLE MODAL
 

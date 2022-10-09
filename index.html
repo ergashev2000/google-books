@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-
+    <title>Bookshelter</title>
 
     <!-- FONTAWESOME -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -28,11 +27,10 @@
                 <label class="search-label ">
                     <span class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
                     <input type="search" class="search" id="search" name="search" placeholder="Search books">
+                    <button type="button" class="search__btn">Search</button>
                 </label>
                 <div class="theme">
-                    <label>
-                        <input type="checkbox" class="checkbox" id="checkbox">
-                    </label>
+                    <img src="./images/Group.svg">
                 </div>
                 <div class="login">
                     <a href="#" class="login__btn ">
@@ -48,7 +46,7 @@
                     <p>Showing <span class="resultNumbers"></span> Result(s)</p>
                 </div>
                 <div class="newest">
-                    <span></span>
+                    <img src="./images/calendar.svg">
                     <p>Order by newest</p>
                 </div>
             </div>
@@ -60,38 +58,27 @@
 
     <!-- MAIN -->
 
-    <!-- BAR  -->
     <main class="container">
         <div class="main">
             <aside>
+                <!-- BAR  -->
                 <div class="bar">
                     <h2>Bookmarks</h2>
                     <p>
                         If you don’t like to read, you haven’t found the right book
                     </p>
                     <ul class="bookmarks__items">
-                        <!-- <li class="bookmarks__item">
-                            <div class="bookmarks__text">
-                                <h3>Python</h3>
-                                <p>
-                                    David M. Beazley
-                                </p>
-                            </div>
-                            <div class="read__more">
-                                <div>
-                                    <img src="./images/book-open.svg" alt="open book">
-                                </div>
-                                <div>
-                                    <img src="./images/delete.svg" alt="Delete">
-                                </div>
-                            </div>
-                        </li> -->
+
+                        <!-- Bookmark -->
+
                     </ul>
                 </div>
             </aside>
 
             <div class="main__content">
                 <div class="cards">
+
+                    <!-- card -->
 
                 </div>
                 <nav class="paginate">
@@ -100,23 +87,21 @@
                         Prev
                     </span>
                     <ul class="pagination">
-     
+                        <!-- Pagination -->
                     </ul>
                     <span class="next">
                         Next
                     </span>
-                 </nav>
+                </nav>
             </div>
         </div>
-
-        
     </main>
-        <!-- MODAL -->
-        <div class="modal ">
-                    
-        </div>
 
-        
+    <!-- MODAL -->
+    <div class="modal ">
+        <!-- Modal -->
+    </div>
+
     <script src="./js/plugin.js"></script>
     <script src="js/main.js"></script>
 </body>

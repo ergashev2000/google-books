@@ -154,7 +154,7 @@ searchBook()
 $(".newest").addEventListener("click", (e) => {
     $(".cards").innerHTML = " ";
     let searchValLast = localStorage.getItem("searchValue");
-    getData(searchValLast = "python", "&orderBy=newest", 9, 1);
+    getData(searchValLast, "&orderBy=newest", 9, 1);
 })
 
 //////////////////////////////////

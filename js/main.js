@@ -1,12 +1,13 @@
 async function getData(
-  search = "java",
+  search = "python",
   order = "",
   maxResult = "9",
   pageIndex = "1"
 ) {
+  let startIndexNum = pageIndex * 9;
   try {
     const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${search}${order}&maxResults=${maxResult}&startIndex=${pageIndex}`
+      `https://www.googleapis.com/books/v1/volumes?q=${search}${order}&maxResults=${maxResult}&startIndex=${startIndexNum}`
     );
 
     let result = await res.json();
@@ -17,12 +18,14 @@ async function getData(
     
     return result;
   } catch (err) {
-    alert("Serverda muommo bor!!!");
+    setTimeout(() => {
+      alert("Serverda muommo bo'lishi mumkin ! ")
+    }, 3000);
   }
 }
 getData()
 
-paginate(99, 9);
+// paginate(99, 9);
 
 
 // Get history orders by load =============
@@ -32,12 +35,21 @@ window.addEventListener("load", () => {
 })
 // ========================================
 
+
+
+
+
+
+
+
+paginate(99)
+
+
+// let  test = 0;
 // PAGINATE=================================
-function paginate(totalItemsNum, maxResultNum) {
-console.log(totalItemsNum);
-  let pageIndexNum = Math.ceil(totalItemsNum / maxResultNum);
+function paginate(totalItemsNum) {
+  // let pageIndexNum = Math.ceil(totalItemsNum / maxResultNum);
   if (totalItemsNum <= 5) { 
-    console.log("Men ishladim");
     for (let i = 1; i < totalItemsNum; i++) {
       const li = createElement("li", "pag", i);
       $(".pagination").appendChild(li);
@@ -71,7 +83,6 @@ console.log(totalItemsNum);
         $(".pagination").innerHTML = " ";
 
         for (let i = a; i < b; i++) {
-          console.log("Men ish");
           const li = createElement("li", "pag", i + 1);
           $(".pagination").appendChild(li);
         }
@@ -97,27 +108,49 @@ console.log(totalItemsNum);
             ? 4
             : Number(e.target.textContent) + 2;
 
-
-        for (let i = a; i < b; i++) {
-          console.log("Menchi");
-          const li = createElement("li", `${i+1 == e.target.textContent ? "pag act" : "pag"}`, i + 1);
-          $(".pagination").appendChild(li);
-        }
-
-        $(".cards").innerHTML = " ";
-        
-        alert(e.target.textContent)
-        dataRender(getData("java", " ", "9", e.target.textContent));
+            for (let i = a; i < b; i++) {
+              const li = createElement("li", `${i+1 == e.target.textContent ? "pag act" : "pag"}`, i + 1);
+              $(".pagination").appendChild(li);
+            }
+            
+            $(".cards").innerHTML = " ";
+          localStorage.setItem("searchValueNum", e.target.textContent);
+          let searchVal = localStorage.getItem("searchValue");
+          dataRender(getData(searchVal , " ", 9, e.target.textContent));
       }
     });
+
   }
 }
+
+
+
+// SEARCH
+function searchBook(){
+
+  $("#search").addEventListener("keyup", () => {
+    setTimeout(() => {
+      $(".cards").innerHTML = " ";
+      localStorage.setItem("searchValue", $("#search").value);
+      let searchVall = localStorage.getItem("searchVal");
+      dataRender(getData(searchVall = $("#search").value , " ", 9, 1));
+    }, 2000);
+  })
+
+}
+searchBook()
+
+
+
+
 
 //////////////////////////////////
 // NEWEST ORDER
 $(".newest").addEventListener("click", (e) => {
     $(".cards").innerHTML = " ";
-    getData("python", "&orderBy=newest", "9","1");
+    let searchValLast = localStorage.getItem("searchValue");
+    let searchValLastNum = localStorage.getItem("searchValueNum");
+    getData(searchValLast, "&orderBy=newest", 9, searchValLastNum = 1);
 })
 
 //////////////////////////////////
@@ -270,16 +303,6 @@ function deleteBooks() {
 }
 deleteBooks()
 
-// function readBook(){
-
-//   $(".bookmarks__items").addEventListener("click", (e) => {
-//     if (e.target.className == "readMoreBtn") {
-//       console.log();
-//     }
-//   })
-
-
-// }
 
 
 
@@ -288,8 +311,7 @@ deleteBooks()
 
 
 
-
-// CLOSE TOGGLE 
+// CLOSE TOGGLE MODAL
 
 function toggle() {
 
@@ -302,10 +324,5 @@ function toggle() {
 
 }
 toggle()
-
-var scroll = child.parentNode.offsetHeight - child.offsetHeight;
-console.log(scroll);
-
-
 
 

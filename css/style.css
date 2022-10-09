@@ -124,9 +124,20 @@ body {
 /* Bar style */
 .bar{
     width: 25vw;
-    height: initial;
+    max-height: 1935px;
     overflow-y: scroll;
 }
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(221, 216, 216); 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #75828A; 
+      border-radius:10px;
+  }
 .bar > h2{
     font-size: 24px;
     font-family: 'Noto Sans', sans-serif;

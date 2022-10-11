@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
   $(".bookmarks__items").innerHTML = b;
 })
 // ========================================
-
+let testN = 0;
 
 // PAGINATE=================================
 function paginate2(totalItemsNum) {
@@ -110,6 +110,7 @@ function paginate2(totalItemsNum) {
             getData("python" , " ", 9, e.target.textContent)
           }else{
               localStorage.setItem("number" , e.target.textContent)
+              // testN = e.target.textContent;
               searchFun()
           }
       }
@@ -119,7 +120,6 @@ function paginate2(totalItemsNum) {
 }
 
 paginate2(99);
-
 
 
 // SEARCH
@@ -135,7 +135,6 @@ function searchFun() {
 
 
 function searchBook(){
-  
   $(".search__btn").addEventListener("click", () => {
     localStorage.setItem("searchValue", $("#search").value);
     $(".cards").innerHTML = " ";
@@ -163,7 +162,8 @@ $(".newest").addEventListener("click", (e) => {
 
 // RENDER DATA
 function dataRender(dataRen) {
-  dataRen.forEach((item) => {
+  console.log(dataRen)
+    dataRen.forEach((item) => {
     const tr = createElement(
       "div",
       "card",
